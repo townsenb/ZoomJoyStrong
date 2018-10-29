@@ -1,30 +1,44 @@
+/*
+    Zoom Joy Strong Lexer
+    Ben Townsend
+*/
+
+
 %{
     #include <stdio.h>  
+
+    int numLines = 0;
 %}
+
+
 
 %%
 
-END                 {printf("-END");}
+END                 {printf("-END\n");}
 
-;                   {printf("-END OF STATEMENT");}
+;                   {printf("-END OF STATEMENT\n");
+                     numLines++;
+                    }
 
-POINT               {printf("-POINT");}
+POINT               {printf("-POINT\n");}
 
-LINE                {printf("-LINE");}
+LINE                {printf("-LINE\n");}
 
-CIRLCE              {printf("-CIRLCE");}
+CIRLCE              {printf("-CIRLCE\n");}
 
-RECTANGLE           {printf("-RECTANGLE");}
+RECTANGLE           {printf("-RECTANGLE\n");}
 
-SET_COLOR           {printf("-SET COLOR");}
+SET_COLOR           {printf("-SET COLOR\n");}
 
-[0-9]+              {printf("-INT");}
+[0-9]+              {printf("-INT\n");}
 
-[0-9]+\.[0-9]+      {printf("-FLOAT");}
+[0-9]+\.[0-9]+      {printf("-FLOAT\n");}
 
-" " | \t | \n       {printf("-IGNORE")}
+[\t | " "]          ;
 
-.                   {printf("-INVALID");}
+\n                  {numLines++;}
+                    
+.                   {printf("*ERROR - Line: %d\n",numLines);}
 
 %%
 
