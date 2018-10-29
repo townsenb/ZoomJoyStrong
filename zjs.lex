@@ -14,31 +14,31 @@
 
 %%
 
-END                 {printf("-END\n");}
+END                 {printf("\t-END\n");}
 
-;                   {printf("-END OF STATEMENT\n");
+;                   {printf("\t-END OF STATEMENT\n");
                      numLines++;
                     }
 
-POINT               {printf("-POINT\n");}
+POINT               {printf("\t-POINT\n");}
 
-LINE                {printf("-LINE\n");}
+LINE                {printf("\t-LINE\n");}
 
-CIRLCE              {printf("-CIRLCE\n");}
+CIRCLE              {printf("\t-CIRLCE\n");}
 
-RECTANGLE           {printf("-RECTANGLE\n");}
+RECTANGLE           {printf("\t-RECTANGLE\n");}
 
-SET_COLOR           {printf("-SET COLOR\n");}
+SET_COLOR           {printf("\t-SET COLOR\n");}
 
-[0-9]+              {printf("-INT\n");}
+[0-9]+              {printf("\t-INT\n");}
 
-[0-9]+\.[0-9]+      {printf("-FLOAT\n");}
+[0-9]+\.[0-9]+      {printf("\t-FLOAT\n");}
 
 [\t | " "]          ;
 
 \n                  {numLines++;}
                     
-.                   {printf("*ERROR - Line: %d\n",numLines);}
+.                   {printf("\t*ERROR - Line: %d*\n",numLines);}
 
 %%
 
