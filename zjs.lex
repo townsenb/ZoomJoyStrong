@@ -16,9 +16,7 @@
 
 END                 {printf("\t-END\n");}
 
-;                   {printf("\t-END OF STATEMENT\n");
-                     numLines++;
-                    }
+;                   {printf("\t-END OF STATEMENT\n");}
 
 POINT               {printf("\t-POINT\n");}
 
