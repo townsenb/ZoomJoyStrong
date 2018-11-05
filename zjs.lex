@@ -6,7 +6,7 @@
 
 %{
     #include <stdio.h>  
-
+    #include "zjs.tab.h"
     int numLines = 0;
 %}
 
@@ -14,33 +14,28 @@
 
 %%
 
-END                 {printf("\t-END\n");}
+[END|end]                   {return END;}
 
-;                   {printf("\t-END OF STATEMENT\n");}
+;                           {return EOL;}
 
-POINT               {printf("\t-POINT\n");}
+[POINT|point]               {return POINT;}
 
-LINE                {printf("\t-LINE\n");}
+[LINE|line]                 {return LINE;}
 
-CIRCLE              {printf("\t-CIRLCE\n");}
+[CIRCLE|circle]             {return CIRCLE;}
 
-RECTANGLE           {printf("\t-RECTANGLE\n");}
+[RECTANGLE|rectangle|rect]  {return RECTANGLE;}
 
-SET_COLOR           {printf("\t-SET COLOR\n");}
+[SET_COLOR|set_color]       {return SET_COLOR;}
 
-[0-9]+              {printf("\t-INT\n");}
+[0-9]+                      {return INT;}
 
-[0-9]+\.[0-9]+      {printf("\t-FLOAT\n");}
+[0-9]+\.[0-9]+              {return FLOAT;}
 
-[\t | " "]          ;
+[\t | " "]                  ;
 
-\n                  {numLines++;}
+\n                          {numLines++;}
                     
-.                   {printf("\t*ERROR - Line: %d*\n",numLines);}
+.                           {printf("\t*ERROR - Line: %d*\n",numLines);}
 
 %%
-
-int main(int argc, char** argv){
-    yylex();
-    return 0;
-}
