@@ -1,6 +1,7 @@
 
 %{
     #include <stdio.h>
+    #include "zoomjoystrong.h"
     void yyerror(const char* msg);
     int yylex();
 %}
@@ -27,11 +28,11 @@ expr_list:  expr
 expr:       command EOL
             ;
 
-command:    POINT num num
-       |    LINE num num num num
-       |    CIRCLE num num num
-       |    RECTANGLE num num num num
-       |    SET_COLOR num num num
+command:    POINT num num               {point($2,$3);}
+       |    LINE num num num num        {line($2,$3,$4,$5);}
+       |    CIRCLE num num num          {circle($2,$3,$4);}
+       |    RECTANGLE num num num num   {rectangle($2,$3,$4,$5);}
+       |    SET_COLOR num num num       {set_color($2,$3,$4);}
             ;
             
 num:        INT
@@ -45,5 +46,5 @@ int main(){
 }
 
 void yyerror(const char* msg){
-    fprintf(stderr, "*ERROR %s*\n",msg);
+    fprintf(stderr, "*ERROR: %s*\n",msg);
 }
