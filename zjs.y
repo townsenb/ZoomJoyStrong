@@ -43,13 +43,13 @@ command:    POINT INT INT              	{printf("\tpoint %d %d\n",$2,$3);point($
        |    RECTANGLE INT INT INT INT   {printf("\trectangle\n");rectangle($2,$3,$4,$5);}
        |    SET_COLOR INT INT INT       {printf("\tset color\n");set_color($2,$3,$4);}
 			;
-         
 
 %%
 
 int main(){
     setup();
 	yyparse();
+	finish();
     return 0;
 }
 
