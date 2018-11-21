@@ -14,28 +14,28 @@
 
 %%
 
-[END|end]                   {return END;}
+END|end                   {return END;}
 
 ;                           {return EOL;}
 
-[POINT|point]               {return POINT;}
+POINT|point               {return POINT;}
 
-[LINE|line]                 {return LINE;}
+LINE|line                 {return LINE;}
 
-[CIRCLE|circle]             {return CIRCLE;}
+CIRCLE|circle             {return CIRCLE;}
 
-[RECTANGLE|rectangle|rect]  {return RECTANGLE;}
+RECTANGLE|rectangle|rect  {return RECTANGLE;}
 
-[SET_COLOR|set_color]       {return SET_COLOR;}
+SET_COLOR|set_color       {return SET_COLOR;}
 
-[0-9]+                      {return INT;}
+[0-9]+                    {return INT;}
 
-[0-9]+\.[0-9]+              {return FLOAT;}
+[0-9]+\.[0-9]+            {return FLOAT;}
 
-[\t | " "]                  ;
+[\t | " "]	              ;
 
-\n                          {numLines++;}
+\n                        {numLines++;}
                     
-.                           {printf("\t*ERROR - Line: %d*\n",numLines);}
+.                         {printf("\t*ERROR - Line: %d*\n",numLines);}
 
 %%
