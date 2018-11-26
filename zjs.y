@@ -37,12 +37,40 @@ expr_list:  expr
 expr:       command EOL
             ;
 
-command:    POINT INT INT              	{printf("\tpoint %d %d\n",$2,$3);point($2,$3);}
-       |    LINE INT INT INT INT        {printf("\tline %d %d %d %d\n",$2,$3,$4,$5);line($2,$3,$4,$5);}
-       |    CIRCLE INT INT INT          {printf("\tcircle\n");circle($2,$3,$4);}
-       |    RECTANGLE INT INT INT INT   {printf("\trectangle\n");rectangle($2,$3,$4,$5);}
-       |    SET_COLOR INT INT INT       {printf("\tset color\n");set_color($2,$3,$4);}
-			;
+command:    POINT INT INT              		{if($2 <= WIDTH && $2 >=0 && $3 <= HEIGHT && $3 >= 0){
+	   											point($2,$3);
+											 }else{
+												printf("\t*OUT OF BOUNDS\n");
+											 }}
+
+       |    LINE INT INT INT INT        	{if($2 <= WIDTH && $2 >=0 && $3 <= HEIGHT && $3 >= 0
+											 && $4 <= WIDTH && $4 >=0 && $5 <= HEIGHT && $5 >= 0){
+												line($2,$3,$4,$5);
+											 }else{
+												printf("\t*OUT OF BOUNDS\n");
+											 }}
+											
+       |    CIRCLE INT INT INT          	{if(($4 + $2 <= WIDTH) && ($2 - $4 >= 0)
+											 && ($4 + $3 <= HEIGHT) && ($3 - $4 >= 0)){
+												circle($2,$3,$4);
+											 }else{
+												printf("\t*OUT OF BOUNDS\n");
+											 }}
+
+	   |    RECTANGLE INT INT INT INT   	{if($2 <= WIDTH && $2 >=0 && $3 <= HEIGHT && $3 >= 0
+											 && $4 <= WIDTH && $4 >=0 && $5 <= HEIGHT && $5 >= 0){
+												rectangle($2,$3,$4,$5);
+											}else{
+												printf("\t*OUT OF BOUNDS\n");
+											 }}
+       
+	   |    SET_COLOR INT INT INT       	{if($2 <= 255 && $2 >= 0 && $3 <= 255 && $3 >= 0 
+											 && $4 <= 255 && $4 >= 0){
+												set_color($2,$3,$4);
+											}else{
+												printf("\t*OUT OF BOUNDS\n");
+											 }}
+											;
 
 %%
 
